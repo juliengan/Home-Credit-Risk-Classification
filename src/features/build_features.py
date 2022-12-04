@@ -7,8 +7,6 @@ from sklearn.model_selection import RandomizedSearchCV
 from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import MinMaxScaler
 
-source_path = Path(__file__).resolve()
-data_dir = source_path.parent.parent
 
 def read_data(path):  #? date_col is a list
 
@@ -128,11 +126,12 @@ def data_prep(df, mult_var=None):
 
 
 source_path = Path(__file__).resolve()
-root_dir = source_path.parent.parent
+root_dir = source_path.parent.parent.parent
 
+print(root_dir)
 
-train = read_data(f"{data_dir}/data/raw/application_train.csv")
-test = read_data(f"{data_dir}/data/raw/application_test.csv")
+train = read_data(f"{root_dir}/data/raw/application_train.csv")
+test = read_data(f"{root_dir}/data/raw/application_test.csv")
 
 mult_var = ["NAME_CONTRACT_TYPE","CODE_GENDER", "NAME_TYPE_SUITE","NAME_INCOME_TYPE",
                                 "NAME_EDUCATION_TYPE","NAME_FAMILY_STATUS","NAME_HOUSING_TYPE", "OCCUPATION_TYPE", 
@@ -143,8 +142,8 @@ pd.set_option('display.max_columns', None)
 data_cleaned = data_prep(train,mult_var)
 data_cleaned2 = data_prep(test,mult_var)
 
-data_cleaned.to_csv("../data/processed/application_train.csv")
-data_cleaned2.to_csv("../data/processed/application_test.csv")
+data_cleaned.to_csv(f"{root_dir}/data/processed/application_train.csv")
+data_cleaned2.to_csv(f"{root_dir}/data/processed/application_test.csv")
 
 
 data_cleaned
