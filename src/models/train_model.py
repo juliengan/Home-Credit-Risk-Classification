@@ -8,8 +8,8 @@ from pathlib import Path
 source_path = Path(__file__).resolve()
 data_dir = source_path.parent.parent
 
-train = pd.read_csv(f"{data_dir}/processed/application_train.csv").set_index('SK_ID_CURR')
-test = pd.read_csv(f"{data_dir}/processed/application_train.csv").set_index('SK_ID_CURR')
+train = pd.read_csv(f"{data_dir}/data/processed/application_train.csv").set_index('SK_ID_CURR')
+test = pd.read_csv(f"{data_dir}/data/processed/application_train.csv").set_index('SK_ID_CURR')
 
 X_train, X_test = train.iloc[:, 1:245], train.iloc[:, 1:245]
 y_train, y_test = train.TARGET, train.TARGET

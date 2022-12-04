@@ -128,11 +128,11 @@ def data_prep(df, mult_var=None):
 
 
 source_path = Path(__file__).resolve()
-data_dir = source_path.parent.parent
+root_dir = source_path.parent.parent
 
 
-train = read_data(f"{data_dir}/raw/application_train.csv")
-test = read_data(f"{data_dir}/raw/application_test.csv")
+train = read_data(f"{data_dir}/data/raw/application_train.csv")
+test = read_data(f"{data_dir}/data/raw/application_test.csv")
 
 mult_var = ["NAME_CONTRACT_TYPE","CODE_GENDER", "NAME_TYPE_SUITE","NAME_INCOME_TYPE",
                                 "NAME_EDUCATION_TYPE","NAME_FAMILY_STATUS","NAME_HOUSING_TYPE", "OCCUPATION_TYPE", 
