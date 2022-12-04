@@ -8,6 +8,13 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+mlruns/
+deployment/
+**/*.tfvars
+**/*.pem
+**/*.terraform*
+**/*.tfstate*
+**/app.py
 build/
 develop-eggs/
 dist/

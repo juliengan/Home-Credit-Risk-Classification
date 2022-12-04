@@ -1,12 +1,13 @@
-name: ML-project
+name: appBD
 
 conda_env: conda.yml
 
 entry_points:
     main:
         parameters:
-            embedding_dim: {type: int, default: 16}
-            epochs: {type: int, default: 2}
-            maxlen: {type: int, default: 150}
-            tracking_uri: {type: string, default: "http://localhost:5000"}
-        command: "python sentiment.py {embedding_dim} {epochs} {maxlen} {tracking_uri}"
+            n_estimators: {type: int, default: 100}
+            learning_rate: {type: float, default: 1}
+            max_depth: {type: int, default: 1}
+            random_state: {type: int, default: 0}
+            tracking_uri: {type: string, default: "./"}
+        command: "python src/models/train_model.py {n_estimators} {learning_rate} {max_depth} {random_state} {tracking_uri}"
