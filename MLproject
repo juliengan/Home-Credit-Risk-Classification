@@ -1,0 +1,12 @@
+name: ML-project
+
+conda_env: conda.yml
+
+entry_points:
+    main:
+        parameters:
+            embedding_dim: {type: int, default: 16}
+            epochs: {type: int, default: 2}
+            maxlen: {type: int, default: 150}
+            tracking_uri: {type: string, default: "http://localhost:5000"}
+        command: "python sentiment.py {embedding_dim} {epochs} {maxlen} {tracking_uri}"
