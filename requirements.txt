@@ -12,3 +12,4 @@ graphviz
 pandas
 matplotlib
 scikit-learn
+mlflow
