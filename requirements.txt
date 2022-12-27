@@ -13,3 +13,7 @@ pandas
 matplotlib
 scikit-learn
 mlflow
+
+lime
+eli5
+shap
