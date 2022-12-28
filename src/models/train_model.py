@@ -18,7 +18,7 @@ warnings.filterwarnings("ignore")
 n_estimators=int(sys.argv[1])
 learning_rate=int(sys.argv[2])
 max_depth=int(sys.argv[3])
-random_state = sys.argv[4]
+random_state = int(sys.argv[4])
 tracking_uri = sys.argv[5]
 
 
@@ -29,13 +29,15 @@ root_dir = source_path.parent.parent.parent
 train = pd.read_csv(f"{root_dir}/data/processed/application_train.csv").set_index('SK_ID_CURR')
 test = pd.read_csv(f"{root_dir}/data/processed/application_train.csv").set_index('SK_ID_CURR')
 
-X_train, X_test = train.iloc[:10, 1:245], train.iloc[:10, 1:245]
-y_train, y_test = train.TARGET, train.TARGET
+sample_size=10
+X_train, X_test = train.iloc[:sample_size, 1:245], test.iloc[:sample_size, 1:245]
+y_train, y_test = train.TARGET[:sample_size], test.TARGET[:sample_size]
 
 
-mlflow.set_tracking_uri(tracking_uri)
+#mlflow.set_tracking_uri(tracking_uri)
 mlflow.end_run()
 
+print(mlflow.get_tracking_uri())
 
 with mlflow.start_run():
     clf = GradientBoostingClassifier(
@@ -55,4 +57,4 @@ with mlflow.start_run():
     mlflow.log_metric("score", clf.score(X_test, y_test))
 
     mlflow.sklearn.log_model(clf, "credit-risk-classifier")
-    
+        
