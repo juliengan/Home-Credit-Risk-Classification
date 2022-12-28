@@ -57,4 +57,3 @@ with mlflow.start_run():
     mlflow.log_metric("score", clf.score(X_test, y_test))
 
     mlflow.sklearn.log_model(clf, "credit-risk-classifier")
-        
