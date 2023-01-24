@@ -1,5 +1,5 @@
 """ Export ou pipeline : preprocessing and XGBClassifier"""
-
+#%%
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -10,6 +10,9 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from xgboost.sklearn import XGBClassifier
 import pickle
 import sys
+import os
+import pickle
+from pathlib import Path
 
 def read_data(path):
     data = pd.read_csv(path,
@@ -24,8 +27,10 @@ def read_data(path):
     print('\n', df.dtypes)
     return df
 
-path = r'..\data\raw\application_train.csv'
-path_test = r'..\data\raw\application_test.csv'
+source_path = Path(__file__).resolve()
+root_dir = source_path.parent.parent.parent
+path = f"{root_dir}/data/raw/application_train.csv"
+path_test = f"{root_dir}/data/raw/application_test.csv"
 train = read_data(path)
 y = train.TARGET
 train, test = read_data(path), read_data(path_test)
@@ -93,10 +98,6 @@ pipeline = Pipeline(
 print('fitting preprocessor')
 # Some such as default would be binary features, but since
 # they have a third class "unknown" we'll process them as non binary categorical
-
-import os
-import pickle
-
 # Check if the directory exists
 if not os.path.exists("../data/features"):
     os.makedirs("../data/features")
@@ -132,6 +133,7 @@ pipeline.named_steps['preprocessing'].transformers[1][1]\
    .named_steps['scaler']\
    .fit(X_train[num_features],y_train)
 
-
-pickle.dump(pipeline, open('../models/pipe.pkl','wb'))
+pickle.dump(pipeline, open(f"{root_dir}/models/pipe.pkl",'wb'))
 print('model saved. OK')
+
+# %%
