@@ -1,13 +1,19 @@
 from pathlib import Path
+import os
 import sys
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split, TimeSeriesSplit
+from sklearn.metrics import make_scorer, f1_score
 from sklearn.metrics import silhouette_score, davies_bouldin_score
-from sklearn.model_selection import RandomizedSearchCV
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import MinMaxScaler
+from asyncore import read
 
-
+#%matplotlib inline
+## Data Preparation
 def read_data(path):  #? date_col is a list
 
     data = pd.read_csv(path,
@@ -22,7 +28,6 @@ def read_data(path):  #? date_col is a list
         print("Unexpected error:", sys.exc_info()[0])
     print('\n', df.dtypes)
     return df
-
 
 def nan(df):
     print("Process Nan...")
@@ -107,9 +112,8 @@ def custom_DBScrore(estimator, X):
       return np.mean(davies_bouldin_score(X, estimator.predict(X)))
 
 
-
 def data_prep(df, mult_var=None):
-    #df = df.drop_duplicates(keep='last')            #* Keep only most recent duplicatas
+    df = df.drop_duplicates(keep='last')            #* Keep only most recent duplicatas
     #df = fix_typos(df)                              #* Set a good typos for categorical features
     df = pd.get_dummies(data=df, columns=mult_var)
     #df = multiple_format(df, mult_var=None)         #* Encode categorical variables
@@ -122,7 +126,6 @@ def data_prep(df, mult_var=None):
                                                     # TODO: Verify order of functions and add Outliers Removal
     #print('\n', df.dtypes)
     return df
-
 
 
 source_path = Path(__file__).resolve()
@@ -144,6 +147,3 @@ data_cleaned2 = data_prep(test,mult_var)
 
 data_cleaned.to_csv(f"{root_dir}/data/processed/application_train.csv")
 data_cleaned2.to_csv(f"{root_dir}/data/processed/application_test.csv")
-
-
-data_cleaned
