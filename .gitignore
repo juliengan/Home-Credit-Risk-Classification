@@ -6,6 +6,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+notes
 .Python
 env/
 mlruns/
@@ -59,6 +60,7 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+docs/mlruns/
 
 # PyBuilder
 target/

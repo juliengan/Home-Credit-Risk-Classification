@@ -13,6 +13,7 @@ dependencies:
       - protobuf==3.20.*
       - click
       - Sphinx
+      - sphinx-autodoc-typehints
       - coverage
       - awscli
       - flake8
