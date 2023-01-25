@@ -12,6 +12,14 @@ src.features.build\_features module
    :undoc-members:
    :show-inheritance:
 
+src.features.pipeline module
+----------------------------
+
+.. automodule:: src.features.pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

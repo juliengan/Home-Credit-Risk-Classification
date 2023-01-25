@@ -10,6 +10,7 @@ notes
 .Python
 env/
 mlruns/
+mlartifacts/
 deployment/
 **/*.tfvars
 **/*.pem

@@ -24,13 +24,15 @@ from xgboost.sklearn import XGBClassifier
 import pickle
 from pathlib import Path
 
-%matplotlib inline
+
+source_path = Path(__file__).resolve()
+root_dir = source_path.parent.parent.parent    
 
 def read_data(path):
     data = pd.read_csv(path,
                             infer_datetime_format=True,
                             on_bad_lines='warn',
-                            skip_blank_lines=True)
+                            skip_blank_lines=True)[:10]
     try:
         df = data.sort_index()
         df = df.set_index("SK_ID_CURR")
@@ -121,10 +123,6 @@ def data_prep(df, filename, mult_var=None):
     df = df.select_dtypes(exclude=['object'])       #* Remove Object and String columns who are irrelevant
     return df
 
-source_path = Path(__file__).resolve()
-root_dir = source_path.parent.parent.parent    
-cat_features = open(f"{root_dir}/data/features/cat_features.txt", "r")
-cat_features
 
 def extract_processed_data():
     """

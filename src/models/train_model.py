@@ -24,17 +24,7 @@ def train_and_save_xgb():
     """
     source_path = Path(__file__).resolve()
     #mlflow.set_tracking_uri(tracking_uri)
-    """mlflow.end_run()
-
-    print(mlflow.get_tracking_uri())
-
-    with mlflow.start_run():
-        mlflow.log_param("n_estimators", n_estimators)
-        mlflow.log_param("learning_rate", learning_rate)
-        mlflow.log_param("max_depth", max_depth)
-        mlflow.log_param("random_state", random_state)
-        mlflow.log_metric("score", clf.score(X_test, y_test))
-        mlflow.sklearn.log_model(clf, "credit-risk-classifier")"""
+ 
     root_dir = source_path.parent.parent.parent
     pipeline = pickle.load(open(f'{root_dir}/models/pipe.pkl', 'rb'))
     train = pd.read_csv(f"{root_dir}/data/processed/application_train.csv")
@@ -53,17 +43,28 @@ def train_and_save_xgb():
     print("best params : ",gs.best_params_['max_depth'])
     pipeline.set_params(clf__max_depth=gs.best_params_['max_depth'])
     print('re training the gradient booster...')
-    pipeline.named_steps['clf'].fit(train, y_train)
-    pickle.dump(pipeline, open(f'{root_dir}/models/pipe.pkl','wb'))
+
+    mlflow.end_run()
+
+    mlflow.set_tracking_uri("http://localhost:5000")
+
+    with mlflow.start_run():
+        print('starting mlflow tracking...')
+        pipeline.named_steps['clf'].fit(train, y_train)
+
+        #mlflow.log_param("n_estimators", n_estimators)
+        #mlflow.log_param("learning_rate", learning_rate)
+        #mlflow.log_param("max_depth", max_depth)
+        #mlflow.log_param("random_state", random_state)
+        mlflow.log_metric("score", pipeline.named_steps["clf"].score(X_train, y_train))
+        mlflow.sklearn.log_model(pipeline.named_steps["clf"], "credit-risk-classifier")
+        #pickle.dump(pipeline, open(f'{root_dir}/models/pipe.pkl','wb'))
 
 if __name__ == '__main__':
     # get arguments
-    n_estimators=int(sys.argv[1])
-    learning_rate=int(sys.argv[2])
-    max_depth=int(sys.argv[3])
-    random_state = int(sys.argv[4])
-    tracking_uri = sys.argv[5]
+
 
 
     train_and_save_xgb()
+    print('END !')
 

@@ -1,4 +1,3 @@
-""" Export ou pipeline : preprocessing and XGBClassifier"""
 #%%
 import pandas as pd
 from sklearn.compose import ColumnTransformer
@@ -99,10 +98,10 @@ print('fitting preprocessor')
 # Some such as default would be binary features, but since
 # they have a third class "unknown" we'll process them as non binary categorical
 # Check if the directory exists
-if not os.path.exists("../data/features"):
-    os.makedirs("../data/features")
-file_path = "../data/features/num_features.pkl"
-file_path2 = "../data/features/cat_features.pkl"
+if not os.path.exists(f"{root_dir}/data/features"):
+    os.makedirs(f"{root_dir}/data/features")
+file_path = f"{root_dir}/data/features/num_features.pkl"
+file_path2 = f"{root_dir}/data/features/cat_features.pkl"
 
 if not os.path.isfile(file_path):
     with open(file_path, "wb") as f:
