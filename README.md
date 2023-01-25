@@ -55,3 +55,30 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+
+
+Report  :
+
+
+Part 1: Building an ML Project for Home Credit Risk Classification
+
+The ML model for home credit risk classification has been built using the provided dataset. Best practices for production ready code were followed, including:
+
+GIT was used for team collaboration and code and model versioning
+The ML project workflow was separated into different scripts for data preparation, training, prediction, visualize, pipeline.
+A documentation library, such as Sphinx, was used
+The Xgboost was chosen, with the goal of following best practices for production ready code.
+Pickle was used to save a trained machine learning model to a file, so that it can be loaded and used again later
+
+Part 2: Integrating MLFlow Library into the Project
+
+MLFlow was installed in the python environment and added to the library requirements
+Parameters and metrics of the model were tracked and the results were displayed in the local MLFlow UI for multiple runs
+The code was packaged in a reusable and reproducible model format with MLFlow projects
+
+Part 3: Integrating SHAP Library into the Project
+
+SHAP was installed in the python environment and added to the library requirements
+SHAP was used to explain model predictions 
+Visualizations were created to show explanations for specific points of the dataset, for all points of the dataset at once
