@@ -16,11 +16,10 @@ logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
 warnings.filterwarnings("ignore")
 
-def train_and_save_xgb(n_jobs,cv,scoring,tracking_uri):
+def train_and_save_xgb(n_jobs,cv,scoring):
     """Train the XGBBoost and save the model - Loads the pipeline, Retrieve the processed data       
-    .. WARNING::  Be careful to not tie knots when moving the snake!       
-    :param int x: The x position where move to.        
-    :param int y: The y position where move to.        
+    :param int nb_jobs: Number of jobs        
+    :param int cv: The cross-validator
     """
     source_path = Path(__file__).resolve()
     #mlflow.set_tracking_uri(tracking_uri)
@@ -29,7 +28,7 @@ def train_and_save_xgb(n_jobs,cv,scoring,tracking_uri):
     pipeline = pickle.load(open(f'{root_dir}/models/pipe.pkl', 'rb'))
     train = pd.read_csv(f"{root_dir}/data/processed/application_train.csv")
     int_train = pd.read_csv(f"{root_dir}/data/interim/train_before_normalisation.csv")
-    X_train = train#.iloc[:, 1:240]
+    X_train = train
     y_train = int_train.TARGET
     source_path = Path(__file__).resolve()
     root_dir = source_path.parent.parent.parent
@@ -63,6 +62,6 @@ if __name__ == '__main__':
     tracking_uri = sys.argv[4]
 
 
-    train_and_save_xgb(n_jobs,cv,scoring,tracking_uri)
+    train_and_save_xgb(n_jobs,cv,scoring)
     print('END !')
 

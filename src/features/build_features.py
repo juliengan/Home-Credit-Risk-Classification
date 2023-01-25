@@ -41,7 +41,9 @@ def read_data(path):
 
 def nan(df):
     """
-    Handles NaN values"""
+    Handles NaN values
+    :param DataFrame df : dataset
+    """
     print("Process Nan...")
     df_numeric = df.select_dtypes(include=[np.number])
     numeric_cols = df_numeric.columns.values
@@ -88,42 +90,11 @@ def multiple_format(df, mult_var=None):
 
 def normalization(df):
     """Normalizes the data to get same order of magnitude
+        :param DataFrame df : dataset 
     """
     scaler = MinMaxScaler()
     scaler.fit_transform(df)
     return df
-
-def suppressOutliers(df):
-    """Suppresses outliers of dataset
-        :param DataFrame df : dataset
-    """
-    clf = IsolationForest(random_state=42)
-    param_grid = {'n_estimators': list(range(100, 1000, 10)), 
-                'contamination': [0.005, 0.01, 0.02, 0.03, 0.05, 0.06, 0.07, 0.08], 
-                'bootstrap': [True, False]}        
-
-    grid_isol = RandomizedSearchCV(clf, 
-                                    param_grid,
-                                    scoring=custom_silhouette,              #? Davies Bouldin Score     or      Silhouette Score  
-                                    refit=True,
-                                    cv=3, 
-                                    return_train_score=True)
-    best_model = grid_isol.fit(df.values)
-    custom_silhouette(best_model, df.values)
-    custom_DBScrore(best_model, df.values)
-    print('Optimum parameters', best_model.best_params_)
-    y_pred = best_model.predict(df.values)
-    train_clustered = df.assign(Cluster=y_pred)
-    train_clustered = train_clustered.replace({-1: "Anomaly", 1: "Regular"})
-    train_clustered["Cluster"].value_counts()
-
-def custom_silhouette(estimator, X):
-      print("{}   -     ".format(round(silhouette_score(X, estimator.predict(X)), 4)), end = '')
-      return np.mean(silhouette_score(X, estimator.predict(X)))
-
-def custom_DBScrore(estimator, X):
-      print(round(davies_bouldin_score(X, estimator.predict(X)), 4))
-      return np.mean(davies_bouldin_score(X, estimator.predict(X)))
       
 def data_prep(df, filename, mult_var=None):   
     """Processes the dataset without the use of the pipeline
