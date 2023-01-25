@@ -35,7 +35,7 @@ dag_python = DAG(
 )
 
 pipeline_creation = BashOperator(
-    task_id="pipeline_creationv",
+    task_id="pipeline_creation",
     bash_command=f"""
         export MLFLOW_TRACKING_URI={MLFLOW_TRACKING_URI}; 
         mlflow run {PROJECT_DIR} -e create_pipeline
