@@ -3,8 +3,15 @@ name: appBD
 conda_env: conda.yml
 
 entry_points:
+
+    create_pipeline:
+        command: "python src/features/pipeline.py"
+    
+    data_prep:
+        command: "python src/features/build_features.py"
+
     predict:
-        command: "python predict_model.py"
+        command: "python src/models/predict_model.py"
 
     main:
         parameters:

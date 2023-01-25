@@ -34,26 +34,24 @@ dag_python = DAG(
     catchup=False
 )
 
-#python_task = PythonOperator(task_id='python_task',python_callable=my_func, dag=dag_python)
-
 pipeline_creation = BashOperator(
-    task_id="pipeline_creation",
-    bash_command=f"python {PROJECT_DIR}/src/features/pipeline.py",
+    task_id="pipeline_creationv",
+    bash_command=f"""
+        export MLFLOW_TRACKING_URI={MLFLOW_TRACKING_URI}; 
+        mlflow run {PROJECT_DIR} -e create_pipeline
+    """,
     dag=dag_python
 )
-
 
 data_preparation = BashOperator(
     task_id="data_preparation",
-    bash_command=f"python {PROJECT_DIR}/src/features/build_features.py",
+    bash_command=f"""
+        export MLFLOW_TRACKING_URI={MLFLOW_TRACKING_URI}; 
+        mlflow run {PROJECT_DIR} -e data_prep
+    """,
     dag=dag_python
 )
 
-#feature_engineering = BashOperator(
-#    task_id="feature_engineering",
-#    bash_command="python /app/twitter_scraper/twitter_scraper.py",
-#    dag=dag_python
-#)
 
 training = BashOperator(
     task_id="training",
@@ -61,7 +59,6 @@ training = BashOperator(
         export MLFLOW_TRACKING_URI={MLFLOW_TRACKING_URI}; 
         mlflow run {PROJECT_DIR}
     """,
-    #f"python {PROJECT_DIR}/src/models/train_model.py",
     dag=dag_python
 )
 
