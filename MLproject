@@ -3,11 +3,13 @@ name: appBD
 conda_env: conda.yml
 
 entry_points:
+    predict:
+        command: "python predict_model.py"
+
     main:
         parameters:
-            n_estimators: {type: int, default: 100}
-            learning_rate: {type: int, default: 1}
-            max_depth: {type: int, default: 1}
-            random_state: {type: int, default: 0}
+            n_jobs: {type: int, default: -1}
+            cv: {type: int, default: 5}
+            scoring: {type: string, default: "accuracy"}
             tracking_uri: {type: string, default: "http://localhost:5000"}
-    command: "python src/models/train_model.py {n_estimators} {learning_rate} {max_depth} {random_state} {tracking_uri}"
+        command: "python src/models/train_model.py {n_jobs} {cv} {scoring} {tracking_uri}"

@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
 warnings.filterwarnings("ignore")
 
-def train_and_save_xgb():
+def train_and_save_xgb(n_jobs,cv,scoring,tracking_uri):
     """Train the XGBBoost and save the model - Loads the pipeline, Retrieve the processed data       
     .. WARNING::  Be careful to not tie knots when moving the snake!       
     :param int x: The x position where move to.        
@@ -38,7 +38,7 @@ def train_and_save_xgb():
     print("training the gradient booster...")
     pipeline.named_steps['clf'].fit(train, y_train)
     print("getting the best params...")
-    gs = GridSearchCV(pipeline.named_steps["clf"], {"max_depth": [1, 1.3, 1.5]}, n_jobs=-1, cv=5, scoring="accuracy")
+    gs = GridSearchCV(pipeline.named_steps["clf"], {"max_depth": [1, 1.3, 1.5]}, n_jobs=n_jobs, cv=cv, scoring=scoring)
     gs.fit(train, y_train)
     print("best params : ",gs.best_params_['max_depth'])
     pipeline.set_params(clf__max_depth=gs.best_params_['max_depth'])
@@ -62,9 +62,12 @@ def train_and_save_xgb():
 
 if __name__ == '__main__':
     # get arguments
+    n_jobs=int(sys.argv[1])
+    cv=int(sys.argv[2])
+    scoring = sys.argv[3]
+    tracking_uri = sys.argv[4]
 
 
-
-    train_and_save_xgb()
+    train_and_save_xgb(n_jobs,cv,scoring,tracking_uri)
     print('END !')
 
