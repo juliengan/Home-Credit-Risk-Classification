@@ -50,14 +50,14 @@ data_preparation = BashOperator(
 #    dag=dag_python
 #)
 
-training = BashOperator(
-    task_id="training",
+testing = BashOperator(
+    task_id="testing",
     bash_command=f"export MLFLOW_TRACKING_URI={MLFLOW_TRACKING_URI}; mlflow run {PROJECT_DIR}",
     #f"python {PROJECT_DIR}/src/models/train_model.py",
     dag=dag_python
 )
 
-data_preparation >> training
+data_preparation >> testing
 
 
 if __name__ == "__main__":

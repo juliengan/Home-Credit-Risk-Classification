@@ -23,6 +23,18 @@ def train_and_save_xgb():
     :param int y: The y position where move to.        
     """
     source_path = Path(__file__).resolve()
+    #mlflow.set_tracking_uri(tracking_uri)
+    """mlflow.end_run()
+
+    print(mlflow.get_tracking_uri())
+
+    with mlflow.start_run():
+        mlflow.log_param("n_estimators", n_estimators)
+        mlflow.log_param("learning_rate", learning_rate)
+        mlflow.log_param("max_depth", max_depth)
+        mlflow.log_param("random_state", random_state)
+        mlflow.log_metric("score", clf.score(X_test, y_test))
+        mlflow.sklearn.log_model(clf, "credit-risk-classifier")"""
     root_dir = source_path.parent.parent.parent
     pipeline = pickle.load(open(f'{root_dir}/models/pipe.pkl', 'rb'))
     train = pd.read_csv(f"{root_dir}/data/processed/application_train.csv")
@@ -55,15 +67,3 @@ if __name__ == '__main__':
 
     train_and_save_xgb()
 
-    #mlflow.set_tracking_uri(tracking_uri)
-    """mlflow.end_run()
-
-    print(mlflow.get_tracking_uri())
-
-    with mlflow.start_run():
-        mlflow.log_param("n_estimators", n_estimators)
-        mlflow.log_param("learning_rate", learning_rate)
-        mlflow.log_param("max_depth", max_depth)
-        mlflow.log_param("random_state", random_state)
-        mlflow.log_metric("score", clf.score(X_test, y_test))
-        mlflow.sklearn.log_model(clf, "credit-risk-classifier")"""

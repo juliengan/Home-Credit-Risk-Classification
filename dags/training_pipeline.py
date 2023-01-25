@@ -36,6 +36,11 @@ dag_python = DAG(
 
 #python_task = PythonOperator(task_id='python_task',python_callable=my_func, dag=dag_python)
 
+pipeline_creation = BashOperator(
+    task_id="pipeline_creation",
+    bash_command=f"python {PROJECT_DIR}/src/features/pipeline.py",
+    dag=dag_python
+)
 
 
 data_preparation = BashOperator(
@@ -60,7 +65,7 @@ training = BashOperator(
     dag=dag_python
 )
 
-data_preparation >> training
+pipeline_creation >> data_preparation >> training
 
 
 if __name__ == "__main__":
