@@ -27,7 +27,7 @@ default_args = {
 dag_python = DAG(
 	dag_id = "training_pipeline",
 	default_args=default_args,
-	schedule_interval='*/30 * * * *',
+	schedule_interval='*/60 * * * *',
 	dagrun_timeout=timedelta(minutes=60),
 	description='training Pipeline',
 	start_date = airflow.utils.dates.days_ago(1),

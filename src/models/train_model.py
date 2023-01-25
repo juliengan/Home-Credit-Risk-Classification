@@ -17,9 +17,11 @@ logger = logging.getLogger(__name__)
 warnings.filterwarnings("ignore")
 
 def train_and_save_xgb(n_jobs,cv,scoring):
-    """Train the XGBBoost and save the model - Loads the pipeline, Retrieve the processed data       
+    """Train the XGBBoost and save the model - Loads the pipeline, Retrieve the processed data  
+
     :param int nb_jobs: Number of jobs        
     :param int cv: The cross-validator
+    :param str scoring: metric used to score the model
     """
     source_path = Path(__file__).resolve()
     #mlflow.set_tracking_uri(tracking_uri)
@@ -53,6 +55,7 @@ def train_and_save_xgb(n_jobs,cv,scoring):
 
         mlflow.log_metric("score", pipeline.named_steps["clf"].score(X_train, y_train))
         mlflow.sklearn.log_model(pipeline.named_steps["clf"], "credit-risk-classifier")
+        pickle.dump(pipeline, open(f"{root_dir}/models/pipe.pkl",'wb'))
 
 if __name__ == '__main__':
     # get arguments

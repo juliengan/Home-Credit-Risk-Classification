@@ -44,8 +44,6 @@
 <li><a class="reference internal" href="#">src.features package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-src.features.build_features">src.features.build_features module</a><ul>
-<li><a class="reference internal" href="#src.features.build_features.custom_DBScrore"><code class="docutils literal notranslate"><span class="pre">custom_DBScrore()</span></code></a></li>
-<li><a class="reference internal" href="#src.features.build_features.custom_silhouette"><code class="docutils literal notranslate"><span class="pre">custom_silhouette()</span></code></a></li>
 <li><a class="reference internal" href="#src.features.build_features.data_prep"><code class="docutils literal notranslate"><span class="pre">data_prep()</span></code></a></li>
 <li><a class="reference internal" href="#src.features.build_features.extract_processed_data"><code class="docutils literal notranslate"><span class="pre">extract_processed_data()</span></code></a></li>
 <li><a class="reference internal" href="#src.features.build_features.fix_typos"><code class="docutils literal notranslate"><span class="pre">fix_typos()</span></code></a></li>
@@ -53,7 +51,6 @@
 <li><a class="reference internal" href="#src.features.build_features.nan"><code class="docutils literal notranslate"><span class="pre">nan()</span></code></a></li>
 <li><a class="reference internal" href="#src.features.build_features.normalization"><code class="docutils literal notranslate"><span class="pre">normalization()</span></code></a></li>
 <li><a class="reference internal" href="#src.features.build_features.read_data"><code class="docutils literal notranslate"><span class="pre">read_data()</span></code></a></li>
-<li><a class="reference internal" href="#src.features.build_features.suppressOutliers"><code class="docutils literal notranslate"><span class="pre">suppressOutliers()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-src.features.pipeline">src.features.pipeline module</a><ul>
@@ -97,73 +94,112 @@
 </div>
 <div class="section" id="module-src.features.build_features">
 <span id="src-features-build-features-module"></span><h2>src.features.build_features module<a class="headerlink" href="#module-src.features.build_features" title="Permalink to this heading"></a></h2>
-<p>fits the data from the pipeline
-# Besides, we defined our own preprocessing functions : 
-#       normalize() to process data that arent’ with the same order of magnitude, 
-#       nan() to drop NaN values
-#       multiple_format() to one-hot encode our categorical features</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.features.build_features.custom_DBScrore">
-<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">custom_DBScrore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.custom_DBScrore" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.features.build_features.custom_silhouette">
-<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">custom_silhouette</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.custom_silhouette" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.build_features.data_prep">
 <span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">data_prep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.data_prep" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Processes the dataset without the use of the pipeline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – dataset</p></li>
+<li><p><strong>filename</strong> (<em>string</em>) – path of the dataset (local)</p></li>
+<li><p><strong>list</strong> (<em>mult_var</em>) – list of categorical featuress</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.build_features.extract_processed_data">
 <span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">extract_processed_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.extract_processed_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Extracts the raw data and apply the pipeline to the training and testing data : fits and transforms the datasets
+It saves the intermediate dataset (for visualisation) and final processed one.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.build_features.fix_typos">
 <span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">fix_typos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.fix_typos" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Fixes the typos : replaces the commas / converts in MAJ</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>DataFrame</em>) – dataset</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.build_features.multiple_format">
 <span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">multiple_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.multiple_format" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>One-hot encode our categorical features</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>DataFrame</em>) – dataset</p></li>
+<li><p><strong>mult_var</strong> (<em>list</em><em> of </em><em>strings</em>) – list of categorical variables</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.build_features.nan">
 <span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">nan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.nan" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Handles NaN values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>DataFrame</em>) – dataset</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.build_features.normalization">
 <span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">normalization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.normalization" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Normalizes the data to get same order of magnitude</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>DataFrame</em>) – dataset</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.build_features.read_data">
 <span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.read_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.features.build_features.suppressOutliers">
-<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">suppressOutliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.suppressOutliers" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Reads data and sets/sorts the index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – The path of the dataset.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="module-src.features.pipeline">
 <span id="src-features-pipeline-module"></span><h2>src.features.pipeline module<a class="headerlink" href="#module-src.features.pipeline" title="Permalink to this heading"></a></h2>
+<p>Export ou pipeline : preprocessing and XGBClassifier</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.pipeline.create_pipeline">
 <span class="sig-prename descclassname"><span class="pre">src.features.pipeline.</span></span><span class="sig-name descname"><span class="pre">create_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.features.pipeline.create_pipeline" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>fits the data from the pipeline
+Besides, we defined our own preprocessing functions : 
+normalize() to process data that arent’ with the same order of magnitude, 
+nan() to drop NaN values
+Some such as default would be binary features, but since
+they have a third class “unknown” we’ll process them as non binary categorical
+Check if the directory exists</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.features.pipeline.read_data">
 <span class="sig-prename descclassname"><span class="pre">src.features.pipeline.</span></span><span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.pipeline.read_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Reads the CSV file/dataset and creates a dataframe from it, sorts the index and sets the appropriated index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>string</em>) – The path of the dataset.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="module-src.features">

@@ -90,18 +90,25 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="src.models.predict_model.predict">
 <span class="sig-prename descclassname"><span class="pre">src.models.predict_model.</span></span><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.models.predict_model.predict" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the trained XGBClassifier and processed data and predicts the label. Saves the predictions in a csv</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-src.models.train_model">
 <span id="src-models-train-model-module"></span><h2>src.models.train_model module<a class="headerlink" href="#module-src.models.train_model" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.models.train_model.train_and_save_xgb">
-<span class="sig-prename descclassname"><span class="pre">src.models.train_model.</span></span><span class="sig-name descname"><span class="pre">train_and_save_xgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracking_uri</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_model.train_and_save_xgb" title="Permalink to this definition"></a></dt>
-<dd><p>Train the XGBBoost and save the model - Loads the pipeline, Retrieve the processed data       
-.. WARNING::  Be careful to not tie knots when moving the snake!       
-:param int x: The x position where move to.        
-:param int y: The y position where move to.</p>
+<span class="sig-prename descclassname"><span class="pre">src.models.train_model.</span></span><span class="sig-name descname"><span class="pre">train_and_save_xgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.train_model.train_and_save_xgb" title="Permalink to this definition"></a></dt>
+<dd><p>Train the XGBBoost and save the model - Loads the pipeline, Retrieve the processed data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nb_jobs</strong> (<em>int</em>) – Number of jobs</p></li>
+<li><p><strong>cv</strong> (<em>int</em>) – The cross-validator</p></li>
+<li><p><strong>scoring</strong> (<em>str</em>) – metric used to score the model</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

@@ -10,7 +10,6 @@ Subpackages
    src.data
    src.features
    src.models
-   src.visualization
 
 Submodules
 ----------

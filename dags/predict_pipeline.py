@@ -25,11 +25,11 @@ default_args = {
 }
 
 dag_python = DAG(
-	dag_id = "testing_pipeline",
+	dag_id = "predict_pipeline",
 	default_args=default_args,
 	schedule_interval='*/30 * * * *',
 	dagrun_timeout=timedelta(minutes=60),
-	description='testing Pipeline',
+	description='predict Pipeline',
 	start_date = airflow.utils.dates.days_ago(1),
     catchup=False
 )
@@ -44,9 +44,10 @@ data_preparation = BashOperator(
 )
 
 testing = BashOperator(
-    task_id="testing",
+    task_id="predict",
     bash_command=f"""
-        export MLFLOW_TRACKING_URI={MLFLOW_TRACKING_URI}; mlflow run {PROJECT_DIR}
+        export MLFLOW_TRACKING_URI={MLFLOW_TRACKING_URI}; 
+        mlflow run {PROJECT_DIR} -e predict
     """,
     dag=dag_python
 )

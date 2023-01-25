@@ -25,7 +25,8 @@ root_dir = source_path.parent.parent.parent
 def read_data(path):
     """
     Reads data and sets/sorts the index
-    
+
+    :param string path: The path of the dataset.
     """
     data = pd.read_csv(path,
                             infer_datetime_format=True,
@@ -42,7 +43,8 @@ def read_data(path):
 def nan(df):
     """
     Handles NaN values
-    :param DataFrame df : dataset
+
+    :param DataFrame df: dataset
     """
     print("Process Nan...")
     df_numeric = df.select_dtypes(include=[np.number])
@@ -66,7 +68,8 @@ def nan(df):
 
 def fix_typos(df):
     """Fixes the typos : replaces the commas / converts in MAJ
-    :param DataFrame df : dataset
+
+    :param DataFrame df: dataset
     """
     print("Fixing Typos...")
     obj = [col  for col, dt in df.dtypes.items() if dt == object]
@@ -79,8 +82,9 @@ def fix_typos(df):
 
 def multiple_format(df, mult_var=None): 
     """One-hot encode our categorical features
-       :param DataFrame df : dataset 
-       :param list of strings mult_var : list of categorical variables
+
+    :param DataFrame df: dataset 
+    :param list of strings mult_var: list of categorical variables
     """                                
     print("Encoding categorical varible(s)...")
     if mult_var is not None:
@@ -90,7 +94,8 @@ def multiple_format(df, mult_var=None):
 
 def normalization(df):
     """Normalizes the data to get same order of magnitude
-        :param DataFrame df : dataset 
+
+    :param DataFrame df: dataset 
     """
     scaler = MinMaxScaler()
     scaler.fit_transform(df)
@@ -98,9 +103,10 @@ def normalization(df):
       
 def data_prep(df, filename, mult_var=None):   
     """Processes the dataset without the use of the pipeline
-    :param DataFrame df : dataset
-    :param string filename : path of the dataset (local)
-    :param mult_var list : list of categorical features 
+    
+    :param DataFrame df: dataset
+    :param string filename: path of the dataset (local)
+    :param mult_var list: list of categorical featuress
     """ 
     df = df.drop_duplicates(keep='last')            #* Keep only most recent duplicatas
     df = pd.get_dummies(data=df, columns=mult_var)
@@ -137,5 +143,7 @@ def extract_processed_data():
     x_train_.to_csv(f"{root_dir}/data/processed/application_train.csv")
     x_test_.to_csv(f"{root_dir}/data/processed/application_test.csv")
     print("data processed successfully and saved !")
-extract_processed_data()
+
+if __name__ == "__main__":
+    extract_processed_data()
 # %%

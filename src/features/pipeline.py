@@ -16,6 +16,7 @@ from pathlib import Path
 
 def read_data(path):
     """ Reads the CSV file/dataset and creates a dataframe from it, sorts the index and sets the appropriated index 
+    
     :param string path: The path of the dataset.
     """
     data = pd.read_csv(path,
