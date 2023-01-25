@@ -1,9 +1,3 @@
-""" fits the data from the pipeline
-# Besides, we defined our own preprocessing functions : 
-#       normalize() to process data that arent' with the same order of magnitude, 
-#       nan() to drop NaN values
-#       multiple_format() to one-hot encode our categorical features
-""" 
 #%%
 import os
 import sys
@@ -29,6 +23,10 @@ source_path = Path(__file__).resolve()
 root_dir = source_path.parent.parent.parent    
 
 def read_data(path):
+    """
+    Reads data and sets/sorts the index
+    
+    """
     data = pd.read_csv(path,
                             infer_datetime_format=True,
                             on_bad_lines='warn',
@@ -42,6 +40,8 @@ def read_data(path):
     return df
 
 def nan(df):
+    """
+    Handles NaN values"""
     print("Process Nan...")
     df_numeric = df.select_dtypes(include=[np.number])
     numeric_cols = df_numeric.columns.values
@@ -63,6 +63,9 @@ def nan(df):
     return df
 
 def fix_typos(df):
+    """Fixes the typos : replaces the commas / converts in MAJ
+    :param DataFrame df : dataset
+    """
     print("Fixing Typos...")
     obj = [col  for col, dt in df.dtypes.items() if dt == object]
     for col in obj:
@@ -72,7 +75,11 @@ def fix_typos(df):
     print(df.shape)
     return df
 
-def multiple_format(df, mult_var=None):                                 #* mult_var is a list
+def multiple_format(df, mult_var=None): 
+    """One-hot encode our categorical features
+       :param DataFrame df : dataset 
+       :param list of strings mult_var : list of categorical variables
+    """                                
     print("Encoding categorical varible(s)...")
     if mult_var is not None:
         df = pd.get_dummies(data=df, columns=mult_var)
@@ -80,11 +87,16 @@ def multiple_format(df, mult_var=None):                                 #* mult_
     return df
 
 def normalization(df):
+    """Normalizes the data to get same order of magnitude
+    """
     scaler = MinMaxScaler()
     scaler.fit_transform(df)
     return df
 
 def suppressOutliers(df):
+    """Suppresses outliers of dataset
+        :param DataFrame df : dataset
+    """
     clf = IsolationForest(random_state=42)
     param_grid = {'n_estimators': list(range(100, 1000, 10)), 
                 'contamination': [0.005, 0.01, 0.02, 0.03, 0.05, 0.06, 0.07, 0.08], 
@@ -113,7 +125,12 @@ def custom_DBScrore(estimator, X):
       print(round(davies_bouldin_score(X, estimator.predict(X)), 4))
       return np.mean(davies_bouldin_score(X, estimator.predict(X)))
       
-def data_prep(df, filename, mult_var=None):    
+def data_prep(df, filename, mult_var=None):   
+    """Processes the dataset without the use of the pipeline
+    :param DataFrame df : dataset
+    :param string filename : path of the dataset (local)
+    :param mult_var list : list of categorical features 
+    """ 
     df = df.drop_duplicates(keep='last')            #* Keep only most recent duplicatas
     df = pd.get_dummies(data=df, columns=mult_var)
     df = nan(df)   

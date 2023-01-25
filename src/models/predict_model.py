@@ -1,10 +1,11 @@
 #%%
 import pickle
 import pandas as pd
-from sklearn.metrics import accuracy_score, classification_report
 from pathlib import Path
 
 def predict():
+    """Retrieves the trained XGBClassifier and processed data and predicts the label. Saves the predictions in a csv 
+    """
     source_path = Path(__file__).resolve()
     root_dir = source_path.parent.parent.parent
 
