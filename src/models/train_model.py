@@ -38,7 +38,7 @@ def train_and_save_xgb(n_jobs,cv,scoring,tracking_uri):
     print("training the gradient booster...")
     pipeline.named_steps['clf'].fit(train, y_train)
     print("getting the best params...")
-    gs = GridSearchCV(pipeline.named_steps["clf"], {"max_depth": [1, 1.3, 1.5]}, n_jobs=n_jobs, cv=cv, scoring=scoring)
+    gs = GridSearchCV(pipeline.named_steps["clf"], {"max_depth": [1, 3, 5]}, n_jobs=n_jobs, cv=cv, scoring=scoring)
     gs.fit(train, y_train)
     print("best params : ",gs.best_params_['max_depth'])
     pipeline.set_params(clf__max_depth=gs.best_params_['max_depth'])
@@ -52,13 +52,8 @@ def train_and_save_xgb(n_jobs,cv,scoring,tracking_uri):
         print('starting mlflow tracking...')
         pipeline.named_steps['clf'].fit(train, y_train)
 
-        #mlflow.log_param("n_estimators", n_estimators)
-        #mlflow.log_param("learning_rate", learning_rate)
-        #mlflow.log_param("max_depth", max_depth)
-        #mlflow.log_param("random_state", random_state)
         mlflow.log_metric("score", pipeline.named_steps["clf"].score(X_train, y_train))
         mlflow.sklearn.log_model(pipeline.named_steps["clf"], "credit-risk-classifier")
-        #pickle.dump(pipeline, open(f'{root_dir}/models/pipe.pkl','wb'))
 
 if __name__ == '__main__':
     # get arguments

@@ -15,10 +15,13 @@ def predict():
     y = int_train.TARGET
 
 
+    print("start predicting...")
     y_pred = pipe.named_steps["clf"].predict(X_test)
     test = pd.read_csv(f"{root_dir}/data/raw/application_test.csv")
     test['prediction'] = pd.Series(y_pred)
+    print("export output...")
     test.to_csv(f"{root_dir}/data/output/predictions.csv")
+    print("END!")
 
 
 if __name__ == "__main__":
