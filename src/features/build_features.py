@@ -126,25 +126,21 @@ cat_features = open(f"{root_dir}/data/features/cat_features.txt", "r")
 cat_features
 
 def extract_processed_data():
-    """
+    """Extracts the raw data and apply the pipeline to the training and testing data : fits and transforms the datasets
+    It saves the intermediate dataset (for visualisation) and final processed one.
     """
     source_path = Path(__file__).resolve()
     root_dir = source_path.parent.parent.parent
     path = f'{root_dir}/data/raw/application_train.csv'
     path_test = f'{root_dir}/data/raw/application_test.csv'
     train, test = read_data(path), read_data(path_test)
-    #y = train.TARGET
     X_train, X_test = train.iloc[:, 1:240], train.iloc[:, 1:240]
-    #y_train, y_test = train.TARGET, train.TARGET
     cat_features = pickle.load(open(f"{root_dir}/data/features/cat_features.pkl",'rb'))
     num_features = pickle.load(open(f"{root_dir}/data/features/num_features.pkl",'rb'))
     pipeline = pickle.load(open(f"{root_dir}/models/pipe.pkl", 'rb'))
-    #x_train =train.drop('TARGET', axis=1)
     ##### Extract preprocessed data right before normalizing to visualise later on
     data_cleaned = data_prep(train,mult_var=cat_features, filename="train_before_normalisation.csv")
     data_cleaned2 = data_prep(test,mult_var =cat_features, filename="test_before_normalisation.csv")
-
-    # apply the pipeline to the training and test data
     print('preprocessing train...')
     x_train_ = pipeline.named_steps["preprocessing"].fit_transform(X_train)
     print('preprocessing test...')

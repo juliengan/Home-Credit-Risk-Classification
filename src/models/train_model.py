@@ -18,9 +18,7 @@ warnings.filterwarnings("ignore")
 
 def train_and_save_xgb():
     """Train the XGBBoost and save the model - Loads the pipeline, Retrieve the processed data       
-    .. WARNING::  Be careful to not tie knots when moving the snake!       
-    :param int x: The x position where move to.        
-    :param int y: The y position where move to.        
+    Retrieves the xgb pipeline and looks for the best params through a gridsearchcv, and fits the XGB model with the processed dataset        
     """
     source_path = Path(__file__).resolve()
     root_dir = source_path.parent.parent.parent
@@ -51,10 +49,7 @@ if __name__ == '__main__':
     max_depth=int(sys.argv[3])
     random_state = int(sys.argv[4])
     tracking_uri = sys.argv[5]
-
-
     train_and_save_xgb()
-
     #mlflow.set_tracking_uri(tracking_uri)
     """mlflow.end_run()
 

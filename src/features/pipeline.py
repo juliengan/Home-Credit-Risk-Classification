@@ -15,6 +15,9 @@ import pickle
 from pathlib import Path
 
 def read_data(path):
+    """ Reads the CSV file/dataset and creates a dataframe from it, sorts the index and sets the appropriated index 
+    :param string path: The path of the dataset.
+    """
     data = pd.read_csv(path,
                             infer_datetime_format=True,
                             on_bad_lines='warn',
@@ -26,6 +29,7 @@ def read_data(path):
         print("Unexpected error:", sys.exc_info()[0])
     print('\n', df.dtypes)
     return df
+
 
 source_path = Path(__file__).resolve()
 root_dir = source_path.parent.parent.parent
@@ -96,9 +100,9 @@ pipeline = Pipeline(
 
 
 print('fitting preprocessor')
-# Some such as default would be binary features, but since
-# they have a third class "unknown" we'll process them as non binary categorical
-# Check if the directory exists
+""" Some such as default would be binary features, but since
+ they have a third class "unknown" we'll process them as non binary categorical
+ Check if the directory exists"""
 if not os.path.exists(f"{root_dir}/data/features"):
     os.makedirs(f"{root_dir}/data/features")
 file_path = f"{root_dir}/data/features/num_features.pkl"
