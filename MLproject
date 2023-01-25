@@ -1,0 +1,22 @@
+name: appBD
+
+conda_env: conda.yml
+
+entry_points:
+
+    create_pipeline:
+        command: "python src/features/pipeline.py"
+    
+    data_prep:
+        command: "python src/features/build_features.py"
+
+    predict:
+        command: "python src/models/predict_model.py"
+
+    main:
+        parameters:
+            n_jobs: {type: int, default: -1}
+            cv: {type: int, default: 5}
+            scoring: {type: string, default: "accuracy"}
+            tracking_uri: {type: string, default: "http://localhost:5000"}
+        command: "python src/models/train_model.py {n_jobs} {cv} {scoring} {tracking_uri}"

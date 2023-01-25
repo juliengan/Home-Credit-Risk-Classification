@@ -6,8 +6,17 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+notes
 .Python
 env/
+mlruns/
+mlartifacts/
+deployment/
+**/*.tfvars
+**/*.pem
+**/*.terraform*
+**/*.tfstate*
+**/app.py
 build/
 develop-eggs/
 dist/
@@ -51,7 +60,8 @@ coverage.xml
 *.log
 
 # Sphinx documentation
-docs/_build/
+#docs/_build/
+#docs/mlruns/
 
 # PyBuilder
 target/

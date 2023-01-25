@@ -24,13 +24,15 @@ from xgboost.sklearn import XGBClassifier
 import pickle
 from pathlib import Path
 
-%matplotlib inline
+
+source_path = Path(__file__).resolve()
+root_dir = source_path.parent.parent.parent    
 
 def read_data(path):
     data = pd.read_csv(path,
                             infer_datetime_format=True,
                             on_bad_lines='warn',
-                            skip_blank_lines=True)
+                            skip_blank_lines=True)[:10]
     try:
         df = data.sort_index()
         df = df.set_index("SK_ID_CURR")
@@ -111,19 +113,16 @@ def custom_DBScrore(estimator, X):
       print(round(davies_bouldin_score(X, estimator.predict(X)), 4))
       return np.mean(davies_bouldin_score(X, estimator.predict(X)))
       
-def data_prep(df, filename, mult_var=None):
+def data_prep(df, filename, mult_var=None):    
     df = df.drop_duplicates(keep='last')            #* Keep only most recent duplicatas
     df = pd.get_dummies(data=df, columns=mult_var)
     df = nan(df)   
-    df.to_csv(f"{root_dir}/data/interim/" + filename)                                 #* Process empty values based on several conditions
+    df.to_csv(f"{root_dir}/data/interim/" + filename)   #* Process empty values based on several conditions
     df = normalization(df) 
     df = df.convert_dtypes()                        #* Assign good type for the modelling phase
     df = df.select_dtypes(exclude=['object'])       #* Remove Object and String columns who are irrelevant
     return df
-source_path = Path(__file__).resolve()
-root_dir = source_path.parent.parent.parent    
-cat_features = open(f"{root_dir}/data/features/cat_features.txt", "r")
-cat_features
+
 
 def extract_processed_data():
     """Extracts the raw data and apply the pipeline to the training and testing data : fits and transforms the datasets

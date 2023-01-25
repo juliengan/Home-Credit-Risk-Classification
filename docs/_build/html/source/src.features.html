@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.features package &mdash; app-BD 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> app-BD
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">src.features package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-src.features.build_features">src.features.build_features module</a><ul>
+<li><a class="reference internal" href="#src.features.build_features.custom_DBScrore"><code class="docutils literal notranslate"><span class="pre">custom_DBScrore()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.build_features.custom_silhouette"><code class="docutils literal notranslate"><span class="pre">custom_silhouette()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.build_features.data_prep"><code class="docutils literal notranslate"><span class="pre">data_prep()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.build_features.extract_processed_data"><code class="docutils literal notranslate"><span class="pre">extract_processed_data()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.build_features.fix_typos"><code class="docutils literal notranslate"><span class="pre">fix_typos()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.build_features.multiple_format"><code class="docutils literal notranslate"><span class="pre">multiple_format()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.build_features.nan"><code class="docutils literal notranslate"><span class="pre">nan()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.build_features.normalization"><code class="docutils literal notranslate"><span class="pre">normalization()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.build_features.read_data"><code class="docutils literal notranslate"><span class="pre">read_data()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.build_features.suppressOutliers"><code class="docutils literal notranslate"><span class="pre">suppressOutliers()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.features.pipeline">src.features.pipeline module</a><ul>
+<li><a class="reference internal" href="#src.features.pipeline.create_pipeline"><code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code></a></li>
+<li><a class="reference internal" href="#src.features.pipeline.read_data"><code class="docutils literal notranslate"><span class="pre">read_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.features">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">app-BD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">src.features package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/src.features.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="src-features-package">
+<h1>src.features package<a class="headerlink" href="#src-features-package" title="Permalink to this heading"></a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="module-src.features.build_features">
+<span id="src-features-build-features-module"></span><h2>src.features.build_features module<a class="headerlink" href="#module-src.features.build_features" title="Permalink to this heading"></a></h2>
+<p>fits the data from the pipeline
+# Besides, we defined our own preprocessing functions : 
+#       normalize() to process data that arent’ with the same order of magnitude, 
+#       nan() to drop NaN values
+#       multiple_format() to one-hot encode our categorical features</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.custom_DBScrore">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">custom_DBScrore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.custom_DBScrore" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.custom_silhouette">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">custom_silhouette</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.custom_silhouette" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.data_prep">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">data_prep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.data_prep" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.extract_processed_data">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">extract_processed_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.extract_processed_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.fix_typos">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">fix_typos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.fix_typos" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.multiple_format">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">multiple_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.multiple_format" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.nan">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">nan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.nan" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.normalization">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">normalization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.normalization" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.read_data">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.read_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.build_features.suppressOutliers">
+<span class="sig-prename descclassname"><span class="pre">src.features.build_features.</span></span><span class="sig-name descname"><span class="pre">suppressOutliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.build_features.suppressOutliers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-src.features.pipeline">
+<span id="src-features-pipeline-module"></span><h2>src.features.pipeline module<a class="headerlink" href="#module-src.features.pipeline" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.pipeline.create_pipeline">
+<span class="sig-prename descclassname"><span class="pre">src.features.pipeline.</span></span><span class="sig-name descname"><span class="pre">create_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.features.pipeline.create_pipeline" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.features.pipeline.read_data">
+<span class="sig-prename descclassname"><span class="pre">src.features.pipeline.</span></span><span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.features.pipeline.read_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-src.features">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.features" title="Permalink to this heading"></a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
