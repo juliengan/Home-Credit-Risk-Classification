@@ -1,4 +1,10 @@
-from pathlib import Path
+""" fits the data from the pipeline
+# Besides, we defined our own preprocessing functions : 
+#       normalize() to process data that arent' with the same order of magnitude, 
+#       nan() to drop NaN values
+#       multiple_format() to one-hot encode our categorical features
+""" 
+#%%
 import os
 import sys
 import pandas as pd
@@ -9,18 +15,22 @@ from sklearn.metrics import make_scorer, f1_score
 from sklearn.metrics import silhouette_score, davies_bouldin_score
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.ensemble import IsolationForest
-from sklearn.preprocessing import MinMaxScaler
-from asyncore import read
+from sklearn.preprocessing import MinMaxScaler,OneHotEncoder, StandardScaler
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.model_selection import RepeatedStratifiedKFold
+from sklearn.pipeline import Pipeline
+from xgboost.sklearn import XGBClassifier
+import pickle
+from pathlib import Path
 
-#%matplotlib inline
-## Data Preparation
-def read_data(path):  #? date_col is a list
+%matplotlib inline
 
+def read_data(path):
     data = pd.read_csv(path,
                             infer_datetime_format=True,
                             on_bad_lines='warn',
                             skip_blank_lines=True)
-
     try:
         df = data.sort_index()
         df = df.set_index("SK_ID_CURR")
@@ -39,11 +49,6 @@ def nan(df):
         if (pct_missing < 4):                                             #* if NaN < 4% : replace by median
             med = df[col].median()
             df[col] = df[col].fillna(med)
-        """if pct_missing >= 20:                                           #* if NaN > 20% : drop features
-            df = df.drop(columns=[col])
-        if (pct_missing < 20) & (pct_missing >= 4) :                    #* if NaN < 20% & > 4% : drop lines
-            df = df.dropna(subset=[col])"""
-
     df_non_numeric = df.select_dtypes(exclude=[np.number])              #* Repeat process with non numerics variables
     non_numeric_cols = df_non_numeric.columns.values
     for col in non_numeric_cols:
@@ -52,10 +57,6 @@ def nan(df):
         if pct_missing < 4:
             med = df[col].median()
             df[col] = df[col].fillna(med)
-        """if pct_missing >= 20:
-            df = df.drop(columns=[col])
-        if pct_missing < 20 :
-            df = df.dropna(subset=[col])"""
     print(df.shape)
     return df
 
@@ -101,7 +102,6 @@ def suppressOutliers(df):
     train_clustered = df.assign(Cluster=y_pred)
     train_clustered = train_clustered.replace({-1: "Anomaly", 1: "Regular"})
     train_clustered["Cluster"].value_counts()
-    # TO DO return value
 
 def custom_silhouette(estimator, X):
       print("{}   -     ".format(round(silhouette_score(X, estimator.predict(X)), 4)), end = '')
@@ -110,40 +110,50 @@ def custom_silhouette(estimator, X):
 def custom_DBScrore(estimator, X):
       print(round(davies_bouldin_score(X, estimator.predict(X)), 4))
       return np.mean(davies_bouldin_score(X, estimator.predict(X)))
-
-
-def data_prep(df, mult_var=None):
+      
+def data_prep(df, filename, mult_var=None):    
     df = df.drop_duplicates(keep='last')            #* Keep only most recent duplicatas
-    #df = fix_typos(df)                              #* Set a good typos for categorical features
     df = pd.get_dummies(data=df, columns=mult_var)
-    #df = multiple_format(df, mult_var=None)         #* Encode categorical variables
-    df = nan(df)                                    #* Process empty values based on several conditions
+    df = nan(df)   
+    df.to_csv(f"{root_dir}/data/interim/" + filename)   #* Process empty values based on several conditions
     df = normalization(df) 
-    #df = suppressOutliers(df)
     df = df.convert_dtypes()                        #* Assign good type for the modelling phase
     df = df.select_dtypes(exclude=['object'])       #* Remove Object and String columns who are irrelevant
-    #df = df.convert_dtypes()                        #* Assign good type for the modelling phase
-                                                    # TODO: Verify order of functions and add Outliers Removal
-    #print('\n', df.dtypes)
     return df
 
-
 source_path = Path(__file__).resolve()
-root_dir = source_path.parent.parent.parent
+root_dir = source_path.parent.parent.parent    
+cat_features = open(f"{root_dir}/data/features/cat_features.txt", "r")
+cat_features
 
-print(root_dir)
+def extract_processed_data():
+    """
+    """
+    source_path = Path(__file__).resolve()
+    root_dir = source_path.parent.parent.parent
+    path = f'{root_dir}/data/raw/application_train.csv'
+    path_test = f'{root_dir}/data/raw/application_test.csv'
+    train, test = read_data(path), read_data(path_test)
+    #y = train.TARGET
+    X_train, X_test = train.iloc[:, 1:240], train.iloc[:, 1:240]
+    #y_train, y_test = train.TARGET, train.TARGET
+    cat_features = pickle.load(open(f"{root_dir}/data/features/cat_features.pkl",'rb'))
+    num_features = pickle.load(open(f"{root_dir}/data/features/num_features.pkl",'rb'))
+    pipeline = pickle.load(open(f"{root_dir}/models/pipe.pkl", 'rb'))
+    #x_train =train.drop('TARGET', axis=1)
+    ##### Extract preprocessed data right before normalizing to visualise later on
+    data_cleaned = data_prep(train,mult_var=cat_features, filename="train_before_normalisation.csv")
+    data_cleaned2 = data_prep(test,mult_var =cat_features, filename="test_before_normalisation.csv")
 
-train = read_data(f"{root_dir}/data/raw/application_train.csv")
-test = read_data(f"{root_dir}/data/raw/application_test.csv")
-
-mult_var = ["NAME_CONTRACT_TYPE","CODE_GENDER", "NAME_TYPE_SUITE","NAME_INCOME_TYPE",
-                                "NAME_EDUCATION_TYPE","NAME_FAMILY_STATUS","NAME_HOUSING_TYPE", "OCCUPATION_TYPE", 
-                                "WEEKDAY_APPR_PROCESS_START","ORGANIZATION_TYPE", "FONDKAPREMONT_MODE", "HOUSETYPE_MODE",
-                                "WALLSMATERIAL_MODE", "FLAG_OWN_CAR", "FLAG_OWN_REALTY", "EMERGENCYSTATE_MODE"]
-
-pd.set_option('display.max_columns', None)
-data_cleaned = data_prep(train,mult_var)
-data_cleaned2 = data_prep(test,mult_var)
-
-data_cleaned.to_csv(f"{root_dir}/data/processed/application_train.csv")
-data_cleaned2.to_csv(f"{root_dir}/data/processed/application_test.csv")
+    # apply the pipeline to the training and test data
+    print('preprocessing train...')
+    x_train_ = pipeline.named_steps["preprocessing"].fit_transform(X_train)
+    print('preprocessing test...')
+    x_test_ = pipeline.named_steps["preprocessing"].fit_transform(X_test)
+    x_train_ = pd.DataFrame(x_train_)
+    x_test_ = pd.DataFrame(x_test_)
+    x_train_.to_csv(f"{root_dir}/data/processed/application_train.csv")
+    x_test_.to_csv(f"{root_dir}/data/processed/application_test.csv")
+    print("data processed successfully and saved !")
+extract_processed_data()
+# %%
