@@ -90,10 +90,8 @@ This script is for making predictions using a pre-trained model, which is loaded
     -  A LimeTabularExplainer, a tool for explaining the predictions made by a machine learning model, initializes the explainer with various parameters, such as the input data, feature names, and categorical names.
     
     
-### Sphinx Documentation
-A documentation library, such as Sphinx, was used
-
-Pickle was used to save a trained machine learning model to a file, so that it can be loaded and used again later
+## Sphinx Documentation
+A documentation library, such as Sphinx, was used. You can find the HTML files in /docs folder.
 
 ## Part 2: Integrating MLFlow Library into the Project
 
