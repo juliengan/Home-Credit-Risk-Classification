@@ -135,3 +135,7 @@ SHAP was installed in the python environment and added to the library requiremen
 SHAP was used to explain model predictions 
 Visualizations were created to show explanations for specific points of the dataset, for all points of the dataset at once
 It is located into notebooks/04_Visualize.ipynb
+
+
+### Summary of the features importance
+![Dashboard](images/SHAP.png)
