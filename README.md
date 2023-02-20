@@ -77,14 +77,17 @@ This script is for training a model using the Gradient Boosting Classifier from 
 This script is for making predictions using a pre-trained model, which is loaded from a pickle file. It imports various libraries such as pandas and scikit-learn. The script loads the pre-trained pipeline, reads in the testing data, and uses the pipeline to make predictions on the test data. The script also calculates the accuracy score and classification report of the predictions. It then saves the predictions to a csv file.
 
 ### Visualization : 
-Heatmap of the correlations between various features in the training data. The heatmap is created using the seaborn library and is plotted using matplotlib. The features being plotted include various statistics (mean, mode, median) of different features in the data such as income, credit, age, and various other demographic data. Additionally, the heatmap also includes other features such as the number of social circles, phone change and credit bureau data. The correlation coefficient is represented by the color of the cell, with darker colors indicating a stronger correlation. This visualization can help identify which features are most strongly correlated with the target variable, as well as which features may be redundant or not useful for the model.
-Visualize the feature importances and explanations of the XGBoost model using the eli5 library. The provided code loads the saved model and preprocessor, and then utilizes the eli5.show_weights() function to clearly display the relative importance of each feature in the model. Additionally, the eli5.explain_prediction_xgboost() function is used to provide an explanation for a prediction made by the model on a test dataset.
+- Heatmap of the correlations between various features in the training data. The heatmap is created using the seaborn library and is plotted using matplotlib. The features being plotted include various statistics (mean, mode, median) of different features in the data such as income, credit, age, and various other demographic data. Additionally, the heatmap also includes other features such as the number of social circles, phone change and credit bureau data. The correlation coefficient is represented by the color of the cell, with darker colors indicating a stronger correlation. This visualization can help identify which features are most strongly correlated with the target variable, as well as which features may be redundant or not useful for the model.
+
+![Dashboard](images/heatmap.png)
+
+- Visualize the feature importances and explanations of the XGBoost model using the eli5 library. The provided code loads the saved model and preprocessor, and then utilizes the eli5.show_weights() function to clearly display the relative importance of each feature in the model. Additionally, the eli5.explain_prediction_xgboost() function is used to provide an explanation for a prediction made by the model on a test dataset.
 The code is loading the model and preprocessor. It is then using the eli5.show_weights() function to display the feature importances, and eli5.explain_prediction_xgboost() function to explain a prediction made by the model on a test dataset. The function "get_processed" is used to process the data and extract the categorical feature names. It then calls the eli5.show_weights function to display the feature importances, and returns the processed data, all features, and categorical feature names.
 Displaying rows of the test dataset, and the corresponding label of the rows. Then it uses the eli5 library's show_prediction function to display the prediction made by the model on the specific rows. It also uses the convert_to_lime_format function to convert the dataframe to a format that can be used by the Lime library.
 Creating a LimeTabularExplainer object, which is a tool for explaining the predictions made by a machine learning model. It is initializing the explainer with various parameters, such as the input data, feature names, and categorical names. The input data is passed in the form of a transformed dataframe using the convert_to_lime_format() function and the values of the dataframe is passed as the first parameter of the explainer. The mode is set to "classification" as the model is a classification model. The feature names are passed as a list of column names of the dataframe. The categorical_names and categorical_features are passed as the keys and values of the dictionary of categorical names. The discretize_continuous parameter is set to True, which indicates that continuous features should be discretized. Finally, the random_state is set to 42. This will ensure that the results are reproducible.
 This code is visualizing the feature importances and explanations of an XGBoost model using the eli5 and shap libraries. It starts by loading the model and preprocessor, then it uses the eli5.show_weights() function to display the feature importances, and eli5.explain_prediction_xgboost() function to explain a prediction made by the model on a test dataset. After that, it uses the LIME library to provide a more local interpretation of the model by training a linear model around the prediction, then it uses the SHAP library to provide a more global interpretation of the model by calculating the contribution of each feature to the prediction for all instances. The code also includes some visualizations to help understand the results.
 
-
+### Sphinx Documentation
 A documentation library, such as Sphinx, was used
 
 Pickle was used to save a trained machine learning model to a file, so that it can be loaded and used again later
@@ -131,7 +134,18 @@ We have to dags on airflow. Each of them has bash operators that will just launc
 
 ## Part 4: Integrating SHAP Library into the Project
 
-SHAP was installed in the python environment and added to the library requirements
-SHAP was used to explain model predictions 
-Visualizations were created to show explanations for specific points of the dataset, for all points of the dataset at once
+SHAP was installed in the python environment and added to the library requirements.
+SHAP was used to explain model predictions.
+Visualizations were created to show explanations for specific points of the dataset, for all points of the dataset at once.
 It is located into notebooks/04_Visualize.ipynb
+
+
+### Summary of the features importance
+![Dashboard](images/SHAP.png)
+
+### Plot dependance between y and a particular feature ; here, the first feature
+![Dashboard](images/SHAP_dependance.png)
+
+As we can see, this plot outputs th=wo vertical lines, one for y = 0, and the other one for y = 1 (binary classification). Here, we see how our model's prediction use the feature 0.
+
+
