@@ -81,12 +81,15 @@ This script is for making predictions using a pre-trained model, which is loaded
 
 ![Dashboard](images/heatmap.png)
 
-- Visualize the feature importances and explanations of the XGBoost model using the eli5 library. The provided code loads the saved model and preprocessor, and then utilizes the eli5.show_weights() function to clearly display the relative importance of each feature in the model. Additionally, the eli5.explain_prediction_xgboost() function is used to provide an explanation for a prediction made by the model on a test dataset.
-The code is loading the model and preprocessor. It is then using the eli5.show_weights() function to display the feature importances, and eli5.explain_prediction_xgboost() function to explain a prediction made by the model on a test dataset. The function "get_processed" is used to process the data and extract the categorical feature names. It then calls the eli5.show_weights function to display the feature importances, and returns the processed data, all features, and categorical feature names.
-Displaying rows of the test dataset, and the corresponding label of the rows. Then it uses the eli5 library's show_prediction function to display the prediction made by the model on the specific rows. It also uses the convert_to_lime_format function to convert the dataframe to a format that can be used by the Lime library.
-Creating a LimeTabularExplainer object, which is a tool for explaining the predictions made by a machine learning model. It is initializing the explainer with various parameters, such as the input data, feature names, and categorical names. The input data is passed in the form of a transformed dataframe using the convert_to_lime_format() function and the values of the dataframe is passed as the first parameter of the explainer. The mode is set to "classification" as the model is a classification model. The feature names are passed as a list of column names of the dataframe. The categorical_names and categorical_features are passed as the keys and values of the dictionary of categorical names. The discretize_continuous parameter is set to True, which indicates that continuous features should be discretized. Finally, the random_state is set to 42. This will ensure that the results are reproducible.
-This code is visualizing the feature importances and explanations of an XGBoost model using the eli5 and shap libraries. It starts by loading the model and preprocessor, then it uses the eli5.show_weights() function to display the feature importances, and eli5.explain_prediction_xgboost() function to explain a prediction made by the model on a test dataset. After that, it uses the LIME library to provide a more local interpretation of the model by training a linear model around the prediction, then it uses the SHAP library to provide a more global interpretation of the model by calculating the contribution of each feature to the prediction for all instances. The code also includes some visualizations to help understand the results.
-
+- Visualize the feature importances and explanations of the XGBoost model using the eli5 library from the saved model and preprocessor
+    -  It shows weights, i.e., relative importance of each feature in the model, 
+    -  Explains xgboost prediction on the test dataset
+    -  "get_processed" processes the data and extracts the categorical feature names, calls the eli5.show_weights function to display the feature importances, and returns the processed data, all features, and categorical feature names
+    -  Displays rows of the test dataset, and the corresponding label of the rows. Then it uses the eli5 library's show_prediction function to display the prediction made by the model on the specific rows. 
+    -  convert_to_lime_format() converts our dataframe to a format that can be used by the Lime library
+    -  A LimeTabularExplainer, a tool for explaining the predictions made by a machine learning model, initializes the explainer with various parameters, such as the input data, feature names, and categorical names.
+    
+    
 ### Sphinx Documentation
 A documentation library, such as Sphinx, was used
 
