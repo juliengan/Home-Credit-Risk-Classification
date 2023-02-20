@@ -63,21 +63,50 @@ GIT was used for team collaboration and code and model versioning
 The ML project workflow was separated into different scripts for data pipeline, preparation, training, prediction, visualize.
 
 ### Pipeline : 
-Creating a pipeline that includes preprocessing and an XGBClassifier model. The preprocessing step includes imputing missing values with SimpleImputer, scaling numerical features with StandardScaler and encoding categorical features with OneHotEncoder. The pipeline also includes the XGBClassifier model. The pipeline is then pickled to be exported for use in other applications. It is also using some features and columns from the dataset.
-Defines a list of features that are considered numerical features and will be used later in the pipeline for preprocessing. These features are taken from a dataset that contains information about loan applications. These features include information such as the number of children, the applicant's income, credit amount, annuity amount, goods price, population relative to region, age, days employed, days registered, days ID was published, car age, mobile phone ownership, family member count, and various other demographic and financial information about the applicant. These numerical features will be used to train and predict a model.
+- Preprocessing : 
+    - imputing missing values with SimpleImputer, 
+    - scaling numerical features with StandardScaler 
+    - encoding categorical features with OneHotEncoder 
+    - Defines a list of features that are considered numerical features and will be used later in the pipeline for preprocessing. These features include information such as the number of children, the applicant's income, credit amount, annuity amount, goods price, population relative to region, age, days employed, days registered, days ID was published, car age, mobile phone ownership, family member count, and various other demographic and financial information about the applicant. 
+- XGBClassifier model 
+- The pipeline is then pickled to be exported for use in other notebooks/scripts. It is also using some features and columns from the dataset.
+
+Here is the global functioning of our pipeline :
+
+Raw Data --> Data Reading --> Train/Test Split --> Preprocessing --> Model Training --> Model Saving
+                                                      |             |                |
+                                                      v             v                v
+                                                OneHot Encoding  Imputation      Imputation
+                                                    |               |                |
+                                                    v               v                v
+                                              XGBClassifier    OneHot Encoding  Standard Scaling
+                                                                  |                |
+                                                                  v                v
+                                                              Imputation       Imputation
+                                                              
 
 
 ### Data preparation  : 
-This is a script for data preparation, which includes functions for reading in data, handling missing values, fixing typos, encoding categorical variables, normalizing the data, and suppressing outliers. The script also imports various libraries such as pandas, numpy, and scikit-learn, and uses them to perform these tasks. The script includes a pipeline that is used to fit the data, and it also defines its own preprocessing functions such as normalize(), nan() and multiple_format() to further process the data before it is fit to the pipeline. These functions are used to normalize the data, handle missing values, and one-hot encode categorical variables. The script also uses various techniques to suppress outliers, such as Isolation Forest. The script also uses the library XGBoost for classification.
+- Read data, 
+- Handling missing values, 
+- Fixing typos, 
+- Encoding categorical variables, 
+- Normalizing the data, 
+- Suppressing outliers using IsolationForest
 
 ### Training :
-This script is for training a model using the Gradient Boosting Classifier from the scikit-learn library. It imports various libraries such as pandas, scikit-learn, and XGBoost. The script includes a function train_and_save_xgb() which loads a pre-defined pipeline, reads in the training data, splits the data into features and labels, trains the gradient boosting classifier, uses GridSearchCV to find the best parameters for the model, and then retrains the model with the best parameters. After this, the pipeline is saved so it can be used for future predictions. The pipeline is defined in a separate script and it's loaded here and the classifier (XGBClassifier) inside the pipeline is trained on the input data. The pipeline also includes preprocessing steps like imputation, encoding and scaling.
+- Using the Gradient Boosting Classifier from the scikit-learn library. 
+- train_and_save_xgb() loads our pre-defined pipeline, reads in the training data, splits the data into features and labels, trains the gradient boosting classifier, uses GridSearchCV to find the best parameters for the model, and then retrains the model with the best parameters. 
+- The pipeline is saved so it can be used for future predictions. 
 
 ### Prediction : 
-This script is for making predictions using a pre-trained model, which is loaded from a pickle file. It imports various libraries such as pandas and scikit-learn. The script loads the pre-trained pipeline, reads in the testing data, and uses the pipeline to make predictions on the test data. The script also calculates the accuracy score and classification report of the predictions. It then saves the predictions to a csv file.
+- Using a pre-trained model, which is loaded from our pickle file, reads in the testing data, and uses the pipeline to make predictions on the test data. The script also calculates the accuracy score and classification report of the predictions. It then saves the predictions to a csv file.
 
 ### Visualization : 
-- Heatmap of the correlations between various features in the training data. The heatmap is created using the seaborn library and is plotted using matplotlib. The features being plotted include various statistics (mean, mode, median) of different features in the data such as income, credit, age, and various other demographic data. Additionally, the heatmap also includes other features such as the number of social circles, phone change and credit bureau data. The correlation coefficient is represented by the color of the cell, with darker colors indicating a stronger correlation. This visualization can help identify which features are most strongly correlated with the target variable, as well as which features may be redundant or not useful for the model.
+- Heatmap of the correlations between various features in the training data. 
+    - Using the seaborn library and is plotted using matplotlib. 
+    - The features being plotted include various statistics (mean, mode, median) of different features in the data such as income, credit, age, and various other demographic data. Additionally, the heatmap also includes other features such as the number of social circles, phone change and credit bureau data. The correlation coefficient is represented by the color of the cell, with darker colors indicating a stronger correlation. 
+    - This visualization can help identify which features are most strongly correlated with the target variable, as well as which features may be redundant or not useful for the model.
 
 ![Dashboard](images/heatmap.png)
 
