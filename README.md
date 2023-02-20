@@ -103,7 +103,7 @@ Raw Data --> Data Reading --> Train/Test Split --> Preprocessing --> Model Train
 - Using a pre-trained model, which is loaded from our pickle file, reads in the testing data, and uses the pipeline to make predictions on the test data. The script also calculates the accuracy score and classification report of the predictions. It then saves the predictions to a csv file.
 
 
-![Dashboard](images/accuracy.png)
+![Dashboard](images/accuracy.PNG)
 
 ### Visualization : 
 - Heatmap of the correlations between various features in the training data. 
