@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/d531b18f32f74a899aff5195b24f5052/artifacts
+end_time: 1676927935329
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d531b18f32f74a899aff5195b24f5052
+run_name: honorable-ox-724
+run_uuid: d531b18f32f74a899aff5195b24f5052
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1676927909310
+status: 3
+tags: []
+user_id: siewe

@@ -66,6 +66,7 @@ The ML project workflow was separated into different scripts for data pipeline, 
 Creating a pipeline that includes preprocessing and an XGBClassifier model. The preprocessing step includes imputing missing values with SimpleImputer, scaling numerical features with StandardScaler and encoding categorical features with OneHotEncoder. The pipeline also includes the XGBClassifier model. The pipeline is then pickled to be exported for use in other applications. It is also using some features and columns from the dataset.
 Defines a list of features that are considered numerical features and will be used later in the pipeline for preprocessing. These features are taken from a dataset that contains information about loan applications. These features include information such as the number of children, the applicant's income, credit amount, annuity amount, goods price, population relative to region, age, days employed, days registered, days ID was published, car age, mobile phone ownership, family member count, and various other demographic and financial information about the applicant. These numerical features will be used to train and predict a model.
 
+
 ### Data preparation  : 
 This is a script for data preparation, which includes functions for reading in data, handling missing values, fixing typos, encoding categorical variables, normalizing the data, and suppressing outliers. The script also imports various libraries such as pandas, numpy, and scikit-learn, and uses them to perform these tasks. The script includes a pipeline that is used to fit the data, and it also defines its own preprocessing functions such as normalize(), nan() and multiple_format() to further process the data before it is fit to the pipeline. These functions are used to normalize the data, handle missing values, and one-hot encode categorical variables. The script also uses various techniques to suppress outliers, such as Isolation Forest. The script also uses the library XGBoost for classification.
 
@@ -101,6 +102,10 @@ in our MLproject file we have an entrypoint for each step of our pipelines:
            ├── main                  <- Launches the src/models/training.py script to train the model (the trained model is saved into models/pipe.pkl)
            └── predict               <- Launches the src/models/predict.py script to make predictions on test dataset (results are stored into data/output)
 
+![Dashboard](images/mlflow_ui.png)
+
+
+![Dashboard](images/mlflow_run.png)
 
 ## Part 3: Pipeline Orchestration using Airflow
 
@@ -112,10 +117,16 @@ We have to dags on airflow. Each of them has bash operators that will just launc
         ├── data_prep
         ├── main  
 
+![Dashboard](images/training_pipeline.png)
+
+
     |- predict_pipeline (dag)
         ├── data_prep
         ├── predict  
 
+
+
+![Dashboard](images/predict_pipeline.png)
 
 
 ## Part 4: Integrating SHAP Library into the Project
